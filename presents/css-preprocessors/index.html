@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <!--This one seems to work all the time, but really small on ipad-->
+  <!--<meta name="viewport" content="initial-scale=0.4">-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" media="all" href="theme/css/default.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="theme/css/phone.css">
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="js/slides" src="js/require-1.0.8.min.js"></script>
+  <style>
+  @media print {
+  	slide	{ display: block; page-break-before: always; }
+	.note { display: none; }
+  }
+  </style>
+</head>
+<body style="opacity: 0">
+
+<slides class="layout-widescreen">
+
+  <slide class="logoslide nobackground">
+    <article class="flexbox vcenter">
+        <span>FE Day</span>
+    </article>
+  </slide>
+
+  <slide class="title-slide segue nobackground">
+    <!--<aside class="gdbar"><img src="images/turkcell-128.png"></aside>-->
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title><!-- populated from slide_config.json --></h1>
+      <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+    </hgroup>
+  </slide>
+  
+  <slide>
+	<hgroup>
+		<h2>Sunum Hakkında</h2>
+	</hgroup>
+	<article>
+		<ul>
+			<li>Sunum Google IO 2012 ile hazırlanmıştır.</li>
+			<li>Sol alt köşesinde "‡" işareti olan slidelarda "p" tuşuna basarak konuşmacı notlarını görebilirsiniz</li>
+			<li>"f" tuşu sunumu tam ekran olarak açar</li>
+			<li>"w" tuşu sunumu widescreen/normal screen olarak genişliğini değiştirir</li>
+			<li>"o" tuşu, ön izleme moduna geçirir</li>
+		</ul>
+	</article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>CSS Kısa Tarihçesi</h2>
+    </hgroup>
+    <article>
+      <ul class="build">
+        <li>1980lerde SGML</li>
+        <li>1996'da resmi olarak CSS1 yayınlandı.
+            <ul class="build">
+                <li>Font ve metin sitillendirme</li>
+                <li>Hizalama ve elemanlar arasında boşluklar (margin, padding, position)</li>
+            </ul>
+        </li>
+        <li>1998'de CSS2, CSS1e unutulan kısımları eklemek için yayınlandı.</li>
+        <li>CSS3 geliştirilmeye 1998'e başlandı. Hala devam ediyor.</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide class="has-notes">
+      <hgroup>
+          <h2>CSS Frameworkler</h2>
+      </hgroup>
+      <article>
+          <ul class="build">
+              <li>Hızlı prototipleme</li>
+              <li>Hazır sayfa elemanları</li>
+              <li>Responsive desteği</li>
+          </ul>
+          <ul class="build">
+              <li>Basit grid sistemleri: 960gs, 1140 Grid, Goldengrid, Responsive Grid vs.
+                  <ul class="inline">
+                      <li><img src="images/960gs.jpg" width="100" /></li>
+                      <li><img src="images/1140.jpg" width="100" /></li>
+                      <li><img src="images/goldengrid.jpg" width="100" /></li>
+                      <li><img src="images/responsivegrid.jpg" width="100" /></li>
+                  </ul>
+              </li>
+              <li>Tam sistemler: Bootstrap, Foundation, Skeleton, YAML vs.
+                  <ul class="inline">
+                      <li><img src="images/bootstrap.jpg" width="100" /></li>
+                      <li><img src="images/foundation.jpg" width="100" /></li>
+                      <li><img src="images/skeleton.jpg" width="100" /></li>
+                      <li><img src="images/yaml.jpg" width="100" /></li>
+                  </ul>
+              </li>
+          </ul>
+      </article>
+      <aside class="note">
+          <section>
+              <p>CSS geliştikçe kullanım şekli ve alanları artmaya başladı. Artan ihtiyaç sonucunda sayfaların daha kolay kontrol edilmesi ve hızlı üretim için çeşitli CSS frameworkleri ortaya çıktı.</p>
+              <p>Frameworklerin hepsinin ortak vaadi, ister sayfa grid yapısı olsun, ister sayfa elemanlarının sitillendirilmeleri olsun, bizim elimize bir alet çantası bir başlangıç noktası sağlamak oldu.</p>
+          </section>
+      </aside>
+  </slide>
+
+  <slide class="has-notes">
+      <hgroup>
+          <h2>Frameworkler Yetersiz Kalırsa</h2>
+      </hgroup>
+      <article>
+          <ul class="build">
+              <li>Değişkenlere ihtiyacımız olursa</li>
+              <li>Ya da fonksiyonlar</li>
+              <li>Ya da modüler bir yapıya</li>
+              <li>Ya da birden fazla tema ile çalışıyorsanız</li>
+          </ul>
+          <ul class="build">
+              <li>Biri çıkıp
+                  <ul class="build">
+                      <li>CSS için değişken oluşturabilirsiniz</li>
+                      <li>Tekrar kullanılabilir/çağrılabilir fonksiyonlar yazabilirsiniz</li>
+                      <li>Kodlarınızı küçük dosyalara bölüp çalışabilirsiniz</li>
+                  </ul>
+              </li>
+          </ul>
+      </article>
+      <aside class="note">
+          <section>
+              <p>Sitemizin yapısı çok büyüdüğünde ve frameworkler de bizim ihtiyacımızı tamamen karşılamaz duruma gelirse nasıl bir yol izlemek gerekiyor?</p>
+              <p>Aynı/benzer kod bloklarını tekrar tekrar yazmak, CSS üzerindeki kontrolümüzü ne derece zorlaştırır?</p>
+          </section>
+      </aside>
+  </slide>
+
+  <slide>
+      <hgroup class="flexbox vcenter">
+          <h2>CSS Preprocessors (Önişlemciler)</h2>
+          <h3>SASS, LESS</h3>
+      </hgroup>
+  </slide>
+
+  <slide class="has-notes">
+      <hgroup>
+          <h2>CSS Preprocessors Nedir?</h2>
+      </hgroup>
+      <article>
+          <ul class="build">
+              <li>CSS'in kısıtlamaları olmadan CSS yazmak</li>
+              <li>Aynı class (sınıf) tanımını tekrar tekrar yazmadan tanımlamaları yapmak</li>
+              <li>Değişkenler tanımlayabilmek</li>
+              <li>Parametre alabilen fonksiyonlar (mixin) tanımlayabilmek</li>
+              <li>Eforu azaltıp, doğru ve hızlı şekilde "unobtrusive" CSS yazabilmek</li>
+          </ul>
+          <ul class="build inline centered">
+              <li><img src="images/sass.gif" width="150" /></li>
+              <li><img src="images/less.png" width="150" /></li>
+          </ul>
+      </article>
+      <aside class="note">
+          <section>
+              <p>SASS ve LESS dışında da CSS önişlemcileri bulunuyor, örn: Stylus, Turbine CSS, Switch CSS vb.</p>
+              <p>Hepsinin ortak özelliği, başka bir high-end dil kullanarak, hazırlanan koddan uygun şekilde CSS çıktısı oluşturmaktır.</p>
+          </section>
+      </aside>
+  </slide>
+
+  <slide class="has-notes">
+      <hgroup>
+          <h2>Syntax</h2>
+      </hgroup>
+      <article>
+          <pre class="prettyprint" data-lang="SCSS/LESS">
+              /** SCSS ve LESS **/
+              h1 {
+                color: #0982C1;
+              }
+          </pre>
+          <pre class="prettyprint" data-lang="SASS">
+              /** SASS **/
+              h1
+                color: #0982C1;
+          </pre>
+      </article>
+      <aside class="note">
+          <section>
+              <p>SASS ile kod yazılırken SASS ya da SCSS şeklinde iki farklı formattan biri seçilebilir. SCSS, adından da anlaşılabileceği gibi CSS'e benzer yapıdayken, SASS daha farklı bir formattadır.</p>
+              <p>LESS'in kod yapısı ile SCSS gibi, CSS ile benzer yapıdadır.</p>
+          </section>
+      </aside>
+  </slide>
+
+  <slide>
+      <hgroup>
+          <h2>Değişkenler</h2>
+      </hgroup>
+      <article>
+          <div class="shared">
+              <pre class="prettyprint" data-lang="SCSS">
+  $color: blue;
+  div {
+    color: $color;
+  }
+              </pre>
+              <pre class="prettyprint" data-lang="LESS">
+  @color: blue;
+  div {
+    color: @color;
+  }
+              </pre>
+          </div>
+          <pre class="prettyprint" data-lang="css">
+  div {
+    color: blue;
+  }
+          </pre>
+      </article>
+  </slide>
+
+  <slide>
+      <hgroup>
+          <h2>Nesting</h2>
+      </hgroup>
+      <article class="smaller">
+          <div class="shared">
+              <pre class="prettyprint" data-lang="SCSS">
+  ul {
+    margin: 0;
+
+    li {
+        float: left;
+    }
+
+    a {
+        color: #999;
+        &:hover {
+            color: #229ed3;
+        }
+    }
+  }
+              </pre>
+              <pre class="prettyprint" data-lang="LESS">
+  ul {
+    margin: 0;
+
+    li {
+        float: left;
+    }
+
+    a {
+        color: #999;
+        &:hover {
+            color: #229ed3;
+        }
+    }
+  }
+              </pre>
+          </div>
+          <pre class="prettyprint" data-lang="css">
+  ul { margin: 0; }
+
+  ul li { float: left; }
+
+  ul a { color: #999; }
+  ul a:hover { color: #229ed3; }
+          </pre>
+      </article>
+  </slide>
+
+  <slide>
+      <hgroup>
+          <h2>Mixins</h2>
+      </hgroup>
+      <article>
+          <div class="shared">
+<pre class="prettyprint" data-lang="SCSS">
+@mixin bordered {
+    border: 1px solid #ddd;
+    &:hover {
+        border-color: #999;
+    }
+}
+
+h1 {
+    @include bordered;
+}
+</pre>
+<pre class="prettyprint" data-lang="LESS">
+.bordered {
+    border: 1px solid #ddd;
+    &:hover {
+        border-color: #999;
+    }
+}
+
+h1 {
+    .bordered;
+}
+</pre>
+          </div>
+<pre class="prettyprint" data-lang="css">
+h1 { border: 1px solid #ddd; }
+h1:hover { border-color: #999; }
+</pre>
+      </article>
+  </slide>
+
+  <slide>
+      <hgroup>
+          <h2>Mixins</h2>
+          <h3>Parametre ile kullanım</h3>
+      </hgroup>
+      <article>
+<pre class="prettyprint" data-lang="SCSS">
+@mixin bordered($width: 1px, $color: blue) {
+    border: $width solid $color;
+}
+
+h1 { @include bordered(2px, #ddd); }
+</pre>
+<pre class="prettyprint" data-lang="LESS">
+.bordered(@width: 1px, @color: blue) {
+    border: @width solid @color;
+}
+
+h1 { .bordered(2px, #ddd); }
+</pre>
+<pre class="prettyprint" data-lang="css">
+h1 { border: 2px solid #ddd; }
+</pre>
+      </article>
+  </slide>
+
+  <slide class="has-notes">
+        <hgroup>
+            <h2>Selector Inheritance</h2>
+        </hgroup>
+      <article>
+  <pre class="prettyprint" data-lang="SCSS">
+  .bordered {
+      border: 1px solid #ddd;
+  }
+
+  h1 {
+      @extend .bordered;
+      color: #999;
+  }
+  </pre>
+  <pre class="prettyprint" data-lang="CSS">
+  .bordered, h1 {
+      border: 1px solid #ddd;
+  }
+
+  h1 { color: #999; }
+  </pre>
+      </article>
+      <aside class="note smaller">
+          <section>
+              <p>LESS içerisinde bu tarz inheritance kullanımının karşılığı bulunmuyor henüz</p>
+              <p>SASS de inheritance kullanırken dilerseniz, sınıfı oluşturmak yerine, placeholder şeklinde tanımlama yapabilirsiniz.</p>
+<pre class="prettyprint" data-lang="SCSS">
+%block { margin: 10px 5px; }
+
+p {
+  @extend %block;
+  border: 1px solid #EEE;
+}
+ul, ol {
+  @extend %block;
+  color: #333;
+  text-transform: uppercase;
+}
+  </pre>
+<pre class="prettyprint" data-lang="CSS">
+p, ul, ol { margin: 10px 5px; }
+
+p { border: 1px solid #EEE; }
+ul, ol { color: #333; text-transform: uppercase; }
+  </pre>
+          </section>
+      </aside>
+  </slide>
+
+  <slide>
+      <hgroup>
+          <h2>Renk İşlemleri</h2>
+      </hgroup>
+      <article>
+          <p>Hem SASS hem de LESS renkler ile alakalı çeşitli işlemler yapmaya imkan vermektedir. Bazıları aşağıdaki gibidir</p>
+          <div class="shared">
+<pre class="prettyprint" data-lang="SCSS">
+lighten($color, $amount)
+darken($color, $amount)
+saturate($color, $amount)
+desaturate($color, $amount)
+adjust-hue($color, $amount)
+opacify($color, $amount)
+transparentize($color, $amount)
+mix($color1, $color2[, $amount])
+grayscale($color)
+complement($color)
+</pre>
+<pre class="prettyprint" data-lang="LESS">
+lighten(@color, @amount)
+darken(@color, @amount)
+saturate(@color, @amount)
+desaturate(@color, @amount)
+spin(@color, @amount)
+mix(@color1, @color2)
+</pre>
+          </div>
+      </article>
+  </slide>
+
+  <slide class="has-notes">
+      <hgroup>
+          <h2>Koşullu Karşılaştırmalar (If/Else)</h2>
+      </hgroup>
+      <article>
+<pre class="prettyprint" data-lang="SCSS">
+@if lightness($color) > 30% {
+  background-color: black;
+}
+@else {
+  background-color: white;
+}
+</pre>
+<pre class="prettyprint" data-lang="LESS">
+.mixin (@color) when (lightness(@color) > 30%) {
+  background-color: black;
+}
+.mixin (@color) when (lightness(@color) =< 30%) {
+  background-color: white;
+}
+</pre>
+      </article>
+      <aside class="note">
+          <section>
+              <p>Hem SASS, hem de LESS karşılaştırmalara ve koşullara destek vermektedir.</p>
+              <p>True, False şeklinde boolean karşılaştırmaların yanında aşağıdaki operatörler de kullanılabilir.</p>
+              <p>and, or, not, <, >, <=, >=, ==</p>
+          </section>
+      </aside>
+  </slide>
+
+  <slide>
+      <hgroup>
+          <h2>Döngüler (Loops)</h2>
+      </hgroup>
+      <article>
+          <p>LESS'in doğrudan döngü desteği yoktur. Ama mixinler içinde recursion tanımlanarak kısıtlı da olsa döngü oluşturulabilir.</p>
+<pre class="prettyprint" data-lang="SCSS">
+@for $i from 1px to 10px {
+  .border-#{i} {
+    border: $i solid blue;
+  }
+}
+</pre>
+      </article>
+  </slide>
+
+  <slide class="has-notes">
+      <hgroup>
+          <h2>Namespace</h2>
+      </hgroup>
+      <article>
+          <p>Namespace ile bir mixin ya da sınıf içinde bir alt tanımı çağırabilmeyi kastediyoruz. SASS'ın desteği bulunmuyor.</p>
+<pre class="prettyprint" data-lang="LESS">
+#bundle () {
+  .red { background-color: red }
+  .green { background-color: green }
+}
+
+.foo {
+  #bundle > .red;
+}
+</pre>
+<pre class="prettyprint" data-lang="CSS">
+.foo {
+  background-color: red;
+}
+</pre>
+      </article>
+      <aside class="note">
+          <section>
+              <p>SASS'ı hazırlayan ekip, bu tarz bir kullanımın mixinler içinde beklenmeyen sonuçlara sebep olabileceği ya da kod bütünlüğünü bozabileceğini düşünüp, SASS içerisine eklememişler.</p>
+          </section>
+      </aside>
+  </slide>
+
+  <slide>
+      <hgroup>
+          <h2>Matematiksel İşlemler</h2>
+      </hgroup>
+      <article>
+          <div class="shared">
+<pre class="prettyprint" data-lang="SCSS">
+1cm * 1em => 1 cm * em
+2in * 3in => 6 in * in
+(1cm / 1em) * 4em => 4cm
+2in + 3cm + 2pc => 3.514in
+3in / 2in => 1.5
+</pre>
+<pre class="prettyprint" data-lang="LESS">
+1cm * 1em => Error
+2in * 3in => 6in
+(1cm / 1em) * 4em => Error
+2in + 3cm + 2pc => Error
+3in / 2in => 1.5in
+</pre>
+          </div>
+      </article>
+  </slide>
+
+  <slide class="has-notes">
+      <hgroup>
+          <h2>Dosya Çağırma (Import)</h2>
+      </hgroup>
+      <article>
+          <div class="shared">
+<pre class="prettyprint" data-lang="SCSS">
+@import "foo.css";
+@import "foo" screen;
+@import "http://foo.com/bar";
+@import url(foo);
+@import "foo", "bar", "baz";
+</pre>
+<pre class="prettyprint" data-lang="SCSS">
+@import "foo.css";
+@import "http://foo.com/bar";
+</pre>
+          </div>
+          <ul class="build">
+              <li>Hem SASS, hem de LESS import yapabilir</li>
+              <li>SASS: Parça dosya desteği.</li>
+          </ul>
+      </article>
+      <aside class="note">
+          <section>
+              <p>Modüllerinizi oluştururken küçük kod parçaları olan dosyalar haline getirip sonrasında bu dosyaları tek bir CSS içerisinde birleştirmek genel olarak beklenen bir durumdur.</p>
+              <p>Bu tarz küçük dosyaların compile edilip küçük CSS dosyaları oluşturulması gereksiz olduğu için, SASS partial (parça) dosya tanımlaması yapılabilmektedir. Bunun için dosyanın adını alt tire (_) ile başlatmak yeterlidir. Bu dosyalar, import edildikleri dosyalar içerisinde eklenirler ama ayrıca CSS dosyası olarak oluşturulmazlar.</p>
+          </section>
+      </aside>
+  </slide>
+
+  <slide>
+      <hgroup>
+          <h2>CSS Çıktıları</h2>
+      </hgroup>
+      <article>
+          <ul class="build">
+              <li>SASS: 2 çeşit ortam tanımı
+                  <ul>
+                      <li>Development</li>
+                      <li>Production</li>
+                  </ul>
+              </li>
+              <li>SASS: 4 çeşit CSS çıktısı tanımı
+                  <ul>
+                      <li>Expanded</li>
+                      <li>Nested</li>
+                      <li>Compact</li>
+                      <li>Compressed</li>
+                  </ul>
+              </li>
+              <li>LESS: Compress CSS çıktısı</li>
+          </ul>
+      </article>
+  </slide>
+
+  <slide class="has-notes">
+      <hgroup>
+          <h2>Eklentileri ve Ötesi</h2>
+      </hgroup>
+      <article>
+          <ul class="build">
+              <li>SASS: Compass, Bourbon
+                  <ul class="build">
+                      <li>CSS3</li>
+                      <li>CSS Sprite</li>
+                      <li>Grid Layouts</li>
+                      <li>Yardımcı fonksiyonlar</li>
+                      <li>Tipografi</li>
+                  </ul>
+              </li>
+              <li>LESS: LessHat, LessElements
+                  <ul class="build">
+                      <li>CSS3</li>
+                      <li>Grid Layouts</li>
+                      <li>Tipografi</li>
+                  </ul>
+              </li>
+          </ul>
+      </article>
+      <aside class="note">
+          <section>
+              <p>SASS ve LESS kendi başlarına güçlü yapılar olmasına rağmen, community tarafından hazırlanmış mixin kütüphaneleri sayesinde kod yazmayı ve CSS3 ya da vendor-prefixler ile yaşanan karmaşayı azaltmışlardır.</p>
+          </section>
+      </aside>
+  </slide>
+
+  <slide>
+      <hgroup>
+          <h2>Nasıl Kullanılır?</h2>
+          <h3>SASS</h3>
+      </hgroup>
+      <article>
+          <ul class="build">
+              <li>Ruby tabanlı</li>
+              <li>Ruby GEM olarak kuruluyor</li>
+              <li>Command line ile compile edilebilir</li>
+              <li>GUI compilerlar ile compile edilebilir
+                  <ul class="inline centered">
+                      <li><img src="images/scout.png" height="70" /></li>
+                      <li><img src="images/mixture.png" height="70" /></li>
+                      <li><img src="images/codekit.png" height="70" /></li>
+                      <li><img src="images/fireapp.png" height="70" /></li>
+                  </ul>
+              </li>
+          </ul>
+      </article>
+  </slide>
+
+  <slide>
+      <hgroup>
+          <h2>Nasıl Kullanılır?</h2>
+          <h3>LESS</h3>
+      </hgroup>
+      <article>
+          <ul class="build">
+              <li>JavaScript ile client-side şeklinde</li>
+              <li>Ruby ile Command line üzerinden</li>
+              <li>GUI Compilerlar ile compile edilebilir
+                  <ul class="inline centered">
+                      <li><img src="images/winless.png" height="70" /></li>
+                      <li><img src="images/crunch.png" height="70" /></li>
+                      <li><img src="images/mixture.png" height="70" /></li>
+                      <li><img src="images/codekit.png" height="70" /></li>
+                  </ul>
+              </li>
+          </ul>
+      </article>
+  </slide>
+
+  <slide class="has-notes">
+      <hgroup>
+          <h2>Hangisini Tercih Etmeliyim?</h2>
+      </hgroup>
+      <article class="smaller">
+          <table>
+              <thead>
+                <tr>
+                    <th>&nbsp;</th>
+                    <th>SASS</th>
+                    <th>LESS</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                    <td>Kolay Kurulum</td>
+                    <td>-</td>
+                    <td>+</td>
+                </tr>
+                <tr>
+                    <td>Değişkenler, Nesting, Mixins, Koşullar</td>
+                    <td>+</td>
+                    <td>+</td>
+                </tr>
+                <tr>
+                    <td>Inheritance</td>
+                    <td>+</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Döngüler</td>
+                    <td>+</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Namespace</td>
+                    <td>-</td>
+                    <td>+</td>
+                </tr>
+                <tr>
+                    <td>Matematiksel İşlemler</td>
+                    <td>+</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>CSS Çıktı Şekilleri</td>
+                    <td>+</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Dosya oluşturma</td>
+                    <td>+</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Hata Bildirimi*</td>
+                    <td>-</td>
+                    <td>+</td>
+                </tr>
+                <tr>
+                    <td>Dokümantasyon**</td>
+                    <td>+</td>
+                    <td>-</td>
+                </tr>
+              </tbody>
+          </table>
+          <div class="footnote">
+              <p>* Hata bildiriminin kolay anlaşılırlığı</p>
+              <p>** LESS'in sitesi görsel olarak daha güzel olduğu için, bazen daha cazip olabiliyor.</p>
+          </div>
+      </article>
+      <aside class="note">
+          <section>
+              <p>Tercih tamamen kişinin kendi zevklerine kalmış durumda. SASS ya da LESS'in birbirlerine çok üstün bir farkı bulunmuyor.</p>
+              <p>Bazı durumlarda (örn:keyframe hazırlarken) LESS'in değişken isimlendirme yapısı yüzünden mixinleri parça parça yazmak gerekebiliyor.</p>
+              <p>CSS çıktısı ve dosya oluşturma bakımından SASS daha gelişmiş bir yapı sunuyor. 4 farklı şekilde (expanded, nested, compact, compressed) CSS çıktısı verebiliyor. Ayrıca sadece include edilip, normalde dosya olarak compile edilmesine gerek olmayan dosyalar oluşturmanıza izin veriyor.</p>
+          </section>
+      </aside>
+  </slide>
+
+  <slide>
+      <hroup>
+          <h2>Büyük Güç, Büyük Sorumluluklar ile Gelir</h2>
+      </hroup>
+      <article class="flexbox vcenter">
+          <p>SASS ve LESS kodlama sırasında büyük kolaylıklar sağlamaktadır. Ama unutulmaması gereken, sonuç olarak alacağımızın bir CSS kodu olduğudur.</p>
+          <p>Bu yüzden SASS ve LESS yazılırken her zaman yazdığımız kodun CSS çıktısının nasıl olacağını düşünüp ona göre hareket etmek gerekir.</p>
+          <p>Gereksiz nestinglerden, kod tekrarlarından mümkün olduğu kadar kaçınmak "best practice" olarak kabul edilebilir.</p>
+      </article>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <!--<aside class="gdbar right"><img src="images/turkcell-128.png"></aside>-->
+    <article class="flexbox vleft auto-fadein">
+      <h2>&lt;Teşekkürler!&gt;</h2>
+    </article>
+    <p class="auto-fadein" data-config-contact>
+      <!-- populated from slide_config.json -->
+    </p>
+  </slide>
+
+  <slide class="nobackground">
+    <article class="flexbox vcenter">
+      <span><img src="images/uxitd.png"></span>
+    </article>
+  </slide>
+
+  <slide class="backdrop"></slide>
+
+</slides>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-11122974-1");
+pageTracker._trackPageview();
+}
+catch(err) {}
+</script>
+<!--[if IE]>
+  <script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+  <script>CFInstall.check({mode: 'overlay'});</script>
+<![endif]-->
+</body>
+</html>
